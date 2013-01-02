@@ -7,10 +7,10 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>PhoneGap Demo</name>
+    <name>Title in Build</name>
 
     <description>
-        A demo to play with phonegap. 
+        This is the Discription displayed in the build info. 
     </description>
 
     <author href="https://bennmapes.com" email="benn.mapes@gmail.com">
