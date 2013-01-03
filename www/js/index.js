@@ -16,12 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var map;
 var app = {
     initialize: function() {
         this.bind();
     },
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
+        document.addEventListener('map_ready', this.deviceready, false);
     },
     deviceready: function() {
         // This is an event handler function, which means the scope is the event.
@@ -38,5 +40,35 @@ var app = {
         document.querySelector('#' + id + ' .pending').className += ' hide';
         var completeElem = document.querySelector('#' + id + ' .complete');
         completeElem.className = completeElem.className.split('hide').join('');
+        
+        if(id=='map_ready'){
+        	initMap();
+        }
     }
 };
+
+function initMap(){
+    var center = new google.maps.LatLng(49.2807,-123.1040);
+	var myOptions = {
+	    zoom: 15,
+	    center: center,
+	    mapTypeControlOptions: {
+	    	mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID]
+	    },
+	    zIndex: 0,
+	    disableDoubleClickZoom:true
+	  };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+    resizeMap();
+}
+
+function resizeMap(){
+	//Resize the map to be the height of the map container minus the buttons
+	var height = $(window).height() - $('#map_container').position().top - 170 - $("#footernav").height();
+	if(height >= 350){
+		$('#map_canvas').css('height', height);
+		$('#map_container').css('height', height);
+	}
+	google.maps.event.trigger(map, "resize");
+}
