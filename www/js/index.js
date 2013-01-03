@@ -23,7 +23,6 @@ var app = {
     },
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
-        document.addEventListener('map_ready', this.deviceready, false);
     },
     deviceready: function() {
         // This is an event handler function, which means the scope is the event.
@@ -41,11 +40,13 @@ var app = {
         var completeElem = document.querySelector('#' + id + ' .complete');
         completeElem.className = completeElem.className.split('hide').join('');
         
-        if(id=='map_ready'){
-        	initMap();
-        }
     }
 };
+
+
+$(document).ready(function() {
+	initMap();
+}
 
 function initMap(){
     var center = new google.maps.LatLng(49.2807,-123.1040);
