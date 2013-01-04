@@ -46,9 +46,10 @@ var app = {
 
 $(document).ready(function() {
 	initMap();
-}
+});
 
 function initMap(){
+	
     var center = new google.maps.LatLng(49.2807,-123.1040);
 	var myOptions = {
 	    zoom: 15,
@@ -66,10 +67,11 @@ function initMap(){
 
 function resizeMap(){
 	//Resize the map to be the height of the map container minus the buttons
-	var height = $(window).height() - $('#map_container').position().top - 170 - $("#footernav").height();
-	if(height >= 350){
-		$('#map_canvas').css('height', height);
-		$('#map_container').css('height', height);
-	}
+	var top_margin = $('#phone_gap_ready').height();
+	var height = $(window).height() - top_margin;
+	console.log("Resize - Height:"+height+" top:"+top_margin);
+	$('#map_canvas').css('margin-top', top_margin);
+	$('#map_canvas').css('height', height);
+
 	google.maps.event.trigger(map, "resize");
 }
